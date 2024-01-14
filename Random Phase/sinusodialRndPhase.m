@@ -13,5 +13,5 @@ xlabel("n [samples]"); ylabel("x[n]");
 subplot(312);stem(n_,mu_x); axis([0 N-1 -1 1]); grid on; title("{\mu}[n] for x[n] = sin(n*w0 + ph)");
 xlabel("n [samples]"); ylabel("{\mu}[n]");
 
-r_xt = (2/N)*xcorr(xt(n_,phase),xt(m_,phase));
-subplot(313);stem([-N/2:N/2-1],r_xt(N:2*N-1)); grid on; title("R_x_x of Process X[n]"); xlabel("k [time interval]"); ylabel("R_x_x[n]"); axis tight;
+r_xt = (1/N)*xcorr(xt(n_,phase),xt(m_,phase));
+subplot(313);stem([-N/2:N/2-1],r_xt(N:2*N-1)); grid on; title("R_x_x of Process X[n]"); xlabel("k [time interval]"); ylabel("R_x_x[n]"); axis tight; ylim([-1,1]);
