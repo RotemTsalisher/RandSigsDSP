@@ -1,0 +1,19 @@
+clc; clear;
+fs = 44100; f0 = 440; portion = 1000; duration = 1; Ts = 1/fs;
+N = fs*duration;
+t = (0:N-1)*Ts;
+
+square = square(2*pi*f0.*t); %sig
+xt_squa_noise = xt_saw + 0.5*randn([1, length(xt_saw)]); %sig with added noise
+r_xt_noise = xcorr(xt_saw_noise,xt_saw_noise,"normalized"); % auto-corr of sig with added noise
+figure(1); subplot(211); stem([0:portion-1],xt_saw_noise(1:portion)); grid on; 
+title("x(t) = saw + noise"); xlabel("samples"); ylabel("x(t)");
+
+xt_saw = sawtooth(2*pi*f0.*t); %sig
+xt_saw_noise = xt_saw + 0.5*randn([1, length(xt_saw)]); %sig with added noise
+r_xt_noise = xcorr(xt_saw_noise,xt_saw_noise,"normalized"); % auto-corr of sig with added noise
+figure(1); subplot(211); stem([0:portion-1],xt_saw_noise(1:portion)); grid on; 
+title("x(t) = saw + noise"); xlabel("samples"); ylabel("x(t)");
+
+subplot(212); stem([-portion:portion-1], r_xt_noise(length(xt_saw) - portion:length(xt_saw) + portion - 1)); grid on; ylim([-1.5,2]);
+title("r[k] = auto-corr of x(t) (Normalized)"); xlabel("k"); ylabel("r[k]");
